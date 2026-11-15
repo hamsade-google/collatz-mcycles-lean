@@ -24,6 +24,8 @@ project:
     hypothesis) every element of a non-trivial cycle exceeds 2^71.
   authors:
     - "Hamed Sadeghi"
+    - "Moritz Firsching"
+    - "Goran Žužić"
   license: "Apache-2.0"
   responsible_maintainers:
     - "Hamed Sadeghi"
