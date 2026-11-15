@@ -1,0 +1,18 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "CollatzMCycles.Diophantine.terminal",
+    "CollatzMCycles.not_isMCycle_of_le_91_of_barina",
+    "CollatzMCycles.two_pow_71_lt_iterate",
+    "CollatzMCycles.IsMCycle.ne_zero",
+    "isMCycle_one_one",
+    "isMCycle_one_two"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

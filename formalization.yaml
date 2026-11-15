@@ -1,0 +1,171 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Collatz m-cycles for m ≤ 91 (conditional on Bařina's 2^71 check) and an explicit linear-form bound for log 2 and log 3"
+  description: >-
+    Lean 4 / Mathlib formalization of two results. (1) An explicit lower bound for the linear form
+    Λ = (K + L) log 2 − K log 3: for every K ≥ 2438425051595107335801557824 and every L, Λ cannot
+    satisfy 0 < Λ < 100 · 2^(1 − K/2^68). The proof uses explicit symmetric multipoint Padé
+    approximants (the z = x(70 − x) kernel of Salikhov and Bouchelaghem–He–Li–Wu) together with an
+    elementary bound on lcm(1, …, n), and replaces the use of Rhin's (1987) effective irrationality
+    measure in Collatz cycle arguments. (2) Assuming Bařina's 2025 computer verification that every
+    integer 1 ≤ k ≤ 2^71 reaches 1 under the Collatz map (passed as an explicit hypothesis), there
+    is no non-trivial cycle of the shortcut Collatz map with m ≤ 91 local minima. The cycle
+    argument combines a Raney-type rotation of the cycle, a telescopic lower bound on every local
+    minimum, and a kernel-checked chain of continued-fraction steps that forces the number of odd
+    steps past the range of (1). The definitions of the shortcut map and of m-cycles follow Moritz
+    Firsching's formal-conjectures specification. This is an incremental m-cycle certificate
+    plus a formalization; it does not address general cycles or divergent orbits. Both theorems
+    use only propext, Classical.choice and Quot.sound. Four supporting statements are also compared: the
+    trivial cycle 1 → 2 → 1 is a 1-cycle through 1 and through 2, every m-cycle has m ≥ 1, and (under
+    the same hypothesis) every element of a non-trivial cycle exceeds 2^71.
+  authors:
+    - "Hamed Sadeghi"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Hamed Sadeghi"
+
+classification:
+  arxiv: ["math.NT"]
+  msc2020: ["11B83", "11J86", "11J82", "68V15"]
+
+sources:
+  - title: "Kernel-checked exclusion of Collatz m-cycles for m ≤ 91 from Bařina's 2^71 bound, with a Mathlib proof of the terminal linear-form bound replacing Rhin (1987)"
+    type: original-proof
+    relationship: other
+    note: >-
+      The m ≤ 91 statement reproduces the range of Hercher (2023); the proof here differs (no finite
+      search, no use of Rhin's bound) and is first presented by this formalization together with
+      the accompanying write-up.
+  - title: "Improved verification limit for the convergence of the Collatz conjecture"
+    authors:
+      - "David Bařina"
+    type: paper
+    id: "doi:10.1007/s11227-025-07337-0"
+    location: "The Journal of Supercomputing 81, Article 810 (2025)"
+    relationship: background
+    note: "Supplies the 2^71 verification that the m-cycle theorem takes as the explicit hypothesis hB."
+  - title: "There are no Collatz m-cycles with m ≤ 91"
+    authors:
+      - "Christian Hercher"
+    type: paper
+    location: "Journal of Integer Sequences 26 (2023), Article 23.3.5 (and 2026 corrigendum)"
+    relationship: background
+    note: "Earlier proof of the same m ≤ 91 range by a different method."
+  - title: "Theoretical and computational bounds for m-cycles of the 3n + 1 problem"
+    authors:
+      - "John Simons"
+      - "Benne de Weger"
+    type: paper
+    location: "Acta Arithmetica 117 (2005), 51–70"
+    relationship: background
+  - title: "Non-Existence of Collatz m-Cycles for m ≤ 95"
+    authors:
+      - "Xinjun Wang"
+    type: other
+    id: "doi:10.5281/zenodo.21017296"
+    location: "Zenodo preprint (2026)"
+    relationship: background
+  - title: "Approximants de Padé et mesures effectives d'irrationalité"
+    authors:
+      - "Georges Rhin"
+    type: paper
+    location: "Séminaire de Théorie des Nombres, Paris 1985–86, Progress in Mathematics 71, Birkhäuser (1987), 155–164"
+    relationship: background
+    note: "The effective bound that Diophantine.terminal replaces."
+  - title: "On the irrationality measure of ln 3"
+    authors:
+      - "V. Kh. Salikhov"
+    type: paper
+    location: "Doklady Mathematics 75 (2007), 242–245"
+    relationship: background
+  - title: "On the linear independence measures of logarithms of rational numbers. II"
+    authors:
+      - "A. Bouchelaghem"
+      - "Y. He"
+      - "Y. Li"
+      - "Q. Wu"
+    type: paper
+    id: "doi:10.4134/JKMS.j230133"
+    location: "Journal of the Korean Mathematical Society 61 (2024), 293–307"
+    relationship: background
+  - title: "Collatz m-cycle specification (IsMCycle) for google-deepmind/formal-conjectures"
+    authors:
+      - "Moritz Firsching"
+    type: other
+    relationship: background
+    note: "The definitions collatzStep, collatzShortcut and IsMCycle are taken verbatim from this specification."
+
+related_formalizations: []
+
+automation:
+  methods:
+    - method: agent
+      models: ["Gemini"]
+      framework: "Google internal coding agent"
+      tool_setup: "AI-assisted: an LLM coding agent wrote most Lean proofs under human direction; Lean 4 / Lake / Mathlib v4.35.0"
+      cost:
+        wall_time: "several weeks of part-time work"
+        spend_usd: "not tracked"
+        hardware: "local workstation"
+      prompting_notes: "n/a"
+  spend_usd: "not tracked"
+  notes: >-
+    The mathematical argument and its informal write-up were developed by the author with AI
+    assistance; the Lean development was written largely by an AI coding agent directed by the
+    author, who designed the statements, reviewed the trust boundary and checked the results with
+    lake comparator.
+
+fidelity:
+  divergences: >-
+    Bařina's 2^71 verification is a computer result that is not formalized; it enters only as the
+    explicit hypothesis hB. The m-cycle theorem covers m ≤ 91; the larger range m ≤ 100 of the
+    accompanying write-up relies on native_decide certificates and is not part of this submission.
+
+review:
+  status: "author-verified"
+  reviewers:
+    - "Moritz Firsching (build and statement audit of the full development)"
+  notes: >-
+    Moritz Firsching rebuilt the full development (m ≤ 100 version) and audited that the m-cycle
+    theorems match the IsMCycle specification and contain no environment hacks. The submitted
+    statements were checked with lake comparator against the Lean kernel, NanoDa and con-ron.
+
+alignment:
+  namespace: "CollatzMCycles"
+  statements:
+    - source: "Terminal linear-form bound (write-up, Lemma 3.7)"
+      lean: "CollatzMCycles.Diophantine.terminal"
+      module: "CollatzMCycles.Diophantine.Terminal"
+      status: "proved"
+      note: "Proved from Mathlib; no sorry, no native_decide."
+    - source: "No non-trivial m-cycles for m ≤ 91 (write-up, main theorem restricted to m ≤ 91)"
+      lean: "CollatzMCycles.not_isMCycle_of_le_91_of_barina"
+      module: "CollatzMCycles.Le91"
+      status: "proved"
+      note: "Conditional on Bařina's 2^71 verification, stated as the explicit hypothesis hB."
+    - source: "Every element of a non-trivial cycle exceeds 2^71 (write-up, external input E1 applied to cycles)"
+      lean: "CollatzMCycles.two_pow_71_lt_iterate"
+      module: "CollatzMCycles.Orbit"
+      status: "proved"
+      note: "Supporting statement; conditional on the same hypothesis hB."
+    - source: "Every m-cycle has m ≥ 1"
+      lean: "CollatzMCycles.IsMCycle.ne_zero"
+      module: "CollatzMCycles.Blocks"
+      status: "proved"
+      note: "Supporting statement about the definition IsMCycle."
+    - source: "The trivial cycle 1 → 2 → 1 is a 1-cycle through 1"
+      lean: "isMCycle_one_one"
+      module: "CollatzMCycles.Trivial"
+      status: "proved"
+      note: "Test of the definition IsMCycle, from Moritz Firsching's specification."
+    - source: "The trivial cycle 1 → 2 → 1 is a 1-cycle through 2"
+      lean: "isMCycle_one_two"
+      module: "CollatzMCycles.Trivial"
+      status: "proved"
+      note: "Test of the definition IsMCycle, from Moritz Firsching's specification."
+
+acknowledgements: >-
+  Moritz Firsching for the IsMCycle specification and for auditing the development; Goran Žužić for
+  a review of the Padé write-up; the Mathlib community.
